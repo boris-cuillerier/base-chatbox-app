@@ -4,6 +4,18 @@ import Form from './components/Form'
 import Message from './components/Message'
 
 class App extends Component {
+
+  state = {
+    messages: {},
+    pseudo: this.props.match.params.pseudo || 'Anonyme'
+  }
+
+  addMessage = message => {
+    const messages = { ...this.state.messages }
+    messages[`message_${Date.now()}`] = message
+    this.setState({ messages })
+  }
+
   render () {
     return (
       <div className='box'>
@@ -12,7 +24,10 @@ class App extends Component {
             <Message></Message>
           </div>
         </div>
-        <Form></Form>
+        <Form
+          pseudo={this.state.pseudo}
+          addMessage={this.addMessage}
+        ></Form>
       </div>
       
     )
