@@ -11,7 +11,7 @@ class Form extends Component {
         const { addMessage, pseudo, length } = this.props
         const message = {
             pseudo,
-            text: this.state.message
+            message: this.state.message
         }
         addMessage(message)
 
