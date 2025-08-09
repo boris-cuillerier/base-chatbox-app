@@ -3,11 +3,12 @@ import React, { Component } from "react"
 class Form extends Component {
 
     state = {
-        message: ''
+        message: '',
+        length: this.props.length || 140
     }
 
     createMessage = () => {
-        const { addMessage, pseudo } = this.props
+        const { addMessage, pseudo, length } = this.props
         const message = {
             pseudo,
             text: this.state.message
@@ -15,7 +16,7 @@ class Form extends Component {
         addMessage(message)
 
         // Reset the message input
-        this.setState({ message: '' })
+        this.setState({ message: '', length: this.props.length || 140 })
     }
 
     handleSubmit = event => {
@@ -29,6 +30,12 @@ class Form extends Component {
         this.setState({ message })
     }
 
+    handleKeyUp = event => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+            this.createMessage()
+        }
+    }
+    
     render() {
         return (
             <form className="form"
@@ -36,10 +43,11 @@ class Form extends Component {
                 <textarea
                     value={this.state.message}
                     onChange={this.handleChange}
+                    onKeyUp={this.handleKeyUp}
                     required
-                    maxLength="140" />
+                    maxLength={this.state.length} />
                 <div className="info">
-                    140
+                    {this.state.length - this.state.message.length} remaining
                 </div>
                 <button type="submit">Envoyer</button>
             </ form>
