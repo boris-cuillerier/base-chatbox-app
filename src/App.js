@@ -2,12 +2,20 @@ import React, { Component } from 'react'
 import './App.css'
 import Form from './components/Form'
 import Message from './components/Message'
+import base from './base'
 
 class App extends Component {
 
   state = {
     messages: {},
     pseudo: this.props.match.params.pseudo || 'Anonyme'
+  }
+
+  componentDidMount () {
+    base.syncState('/', {
+      context: this,
+      state: 'messages'
+    })
   }
 
   addMessage = message => {
