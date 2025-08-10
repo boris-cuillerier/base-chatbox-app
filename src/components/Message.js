@@ -1,7 +1,7 @@
 import React from "react"
 
 const Message = ({pseudo, message, isUser}) => {
-    if (isUser(pseudo)) {
+    if (isUser) {
         return (
             <p className="user-message">
                 {pseudo} : {message}
